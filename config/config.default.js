@@ -23,8 +23,22 @@ module.exports = appInfo => {
       enable: false,
       ignoreJSON: true
     },
-    domainWhiteList: [ 'http://127.0.0.1:7001/' ], // 配置白名单
+    domainWhiteList: ['http://127.0.0.1:7001/'], // 配置白名单
   }
+
+  // 文件接收模式
+  config.multipart = {
+    mode: 'file'
+  };
+
+  config.uploadDir = 'app/public/upload';
+
+  // 解决跨越
+  config.cors = {
+    origin: '*', // 允许所有跨域访问
+    credentials: true, // 允许 Cookie 跨域跨域
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+  };
 
   config.mysql = {
     // 单数据库信息配置
