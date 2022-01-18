@@ -73,6 +73,7 @@ class UserController extends Controller {
 
     // 调用 service 方法，将数据存入数据库。
     const result = await ctx.service.user.register({
+      
       username,
       password,
       signature: '世界和平。',
@@ -81,6 +82,7 @@ class UserController extends Controller {
     });
 
     if (result) {
+      
       ctx.body = {
         code: 200,
         msg: '注册成功',
@@ -116,24 +118,28 @@ class UserController extends Controller {
   // 编辑用户信息
   async editUserInfo() {
     const { ctx, app } = this;
-    const { signature='' } = ctx.request.body;
+    const {signature, avatar} = ctx.request.body;
     try {
       const token = ctx.request.header.authorization;
       const decode = await app.jwt.verify(token, app.config.jwt.secret);
       let userId = decode.id;
       const userInfo = await ctx.service.user.getUserByName(decode.username);
-      const result = await ctx.service.user.editUserInfo({
+      let params = {
         ...userInfo,
         id: userId,
-        signature
-      });
+      }
+      if (signature !== undefined) params = {...params, signature};
+      if (avatar !== undefined) {
+        let avatarUrl = avatar === '' ? defaultAvatar : avatar;
+        params = {...params, avatar: avatarUrl}
+      }
+      const result = await ctx.service.user.editUserInfo(params);
       ctx.body = {
         code: 200,
         msg: '请求成功',
         data: {
           id: userId,
-          username: userInfo.username,
-          signature
+          username: userInfo.username
         }
       }
     } catch (error) {
