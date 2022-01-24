@@ -2,7 +2,7 @@
 
 const Service = require('egg').Service;
 
-class userService extends Service {
+class UserService extends Service {
   async getUserByName(username) {
     const { app } = this;
     try {
@@ -38,4 +38,4 @@ class userService extends Service {
   }
 }
 
-module.exports = userService;
+module.exports = UserService;

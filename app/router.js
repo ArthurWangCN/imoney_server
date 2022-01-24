@@ -12,4 +12,6 @@ module.exports = app => {
   router.post('/api/user/register', controller.user.register);
   router.post('/api/user/login', controller.user.login);
   router.post('/api/upload', controller.upload.upload);
+
+  router.post('/api/bill/add', controller.bill.add);
 };
