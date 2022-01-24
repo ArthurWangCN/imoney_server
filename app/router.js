@@ -14,4 +14,5 @@ module.exports = app => {
   router.post('/api/upload', controller.upload.upload);
 
   router.post('/api/bill/add', controller.bill.add);
+  router.get('/api/bill/getList', controller.bill.getList);
 };
