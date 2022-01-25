@@ -13,6 +13,7 @@ module.exports = app => {
   router.post('/api/user/login', controller.user.login);
   router.post('/api/upload', controller.upload.upload);
 
-  router.post('/api/bill/add', controller.bill.add);
-  router.get('/api/bill/getList', controller.bill.getList);
+  router.post('/api/bill/add', _jwt, controller.bill.add);
+  router.get('/api/bill/getList', _jwt , controller.bill.getList);
+  router.get('/api/bill/getBillDetail', _jwt , controller.bill.getBillDetail);
 };

@@ -109,6 +109,40 @@ class BillController extends Controller {
       console.log(error);
     }
   }
+
+  // 获取账单详情
+  async getBillDetail() {
+    const { ctx, app } = this;
+    const {id} = ctx.query;
+    let user_id;
+    const token = ctx.request.header.authorization;
+    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    user_id = decode.id;
+
+    if (!id) {
+      ctx.body ={
+        code: 400,
+        msg: "id不能为空",
+        data: null
+      }
+      return;
+    }
+
+    try {
+      let result = await ctx.service.bill.getBillDetail(id, user_id);
+      ctx.body = {
+        code: 200,
+        msg: "请求成功",
+        data: result
+      }
+    } catch (error) {
+      ctx.body = {
+        code: 500,
+        msg: "系统错误",
+        data: null
+      }
+    }
+  }
 }
 
 module.exports = BillController;
