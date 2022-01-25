@@ -16,4 +16,5 @@ module.exports = app => {
   router.post('/api/bill/add', _jwt, controller.bill.add);
   router.get('/api/bill/getList', _jwt , controller.bill.getList);
   router.get('/api/bill/getBillDetail', _jwt , controller.bill.getBillDetail);
+  router.post('/api/bill/updateBill', _jwt , controller.bill.updateBill);
 };
